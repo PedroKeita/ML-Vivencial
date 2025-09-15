@@ -4,7 +4,7 @@ from .random_validator import random_validator
 from .view import view_scatter_plot
 
 __all__ = [
-    "Loading_date",
+    "loading_date",
     "choose_k",
     "random_validator",
     "view_scatter_plot",

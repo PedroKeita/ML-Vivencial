@@ -15,11 +15,13 @@ if __name__ == "__main__":
 
     statistics, better_conf, worse_conf = random_validator(x, y, better_k)
     print("\nEstatísticas validação aleatória de 500 rodadas:")
-    print(pd.DataFrame(statistics, index=[0]).T)
+    print(pd.DataFrame(statistics, index=["estatisticas"]).T)
 
-    print("\nMelhor caso de matriz de confusão:")
-    print(better_conf)
+    acc_best, conf_best = better_conf
+    acc_worst, conf_worst = worse_conf
 
-    print("\nPior caso de matriz de confusão:")
-    print(worse_conf)
-    
+    print("\nMelhor caso de matriz de confusão (acurácia {:.4f}):".format(acc_best))
+    print((conf_best))
+
+    print("\nPior caso de matriz de confusão (acurácia {:.4f}):".format(acc_worst))
+    print((conf_worst))
