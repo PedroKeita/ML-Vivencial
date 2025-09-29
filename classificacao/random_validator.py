@@ -8,13 +8,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 
-def random_validator(x, y, k, rounds=500):
+def random_validator(X, y, k, rounds=500):
 
     """
     Executa validação aleatória do modelo K-NN.
 
     Args:
-        x (np.ndarray): Matriz de características N×p
+        X (np.ndarray): Matriz de características N×p
         y (np.ndarray): Vetor de classes N×1
         k (int): Número de vizinhos para K-NN
         rounds (int): Número de rodadas aleatórias
@@ -24,17 +24,17 @@ def random_validator(x, y, k, rounds=500):
         better_conf (tuple): Matriz de confusão do melhor caso
         worse_conf (tuple): Matriz de confusão do pior caso
     """
-    
+
     acc_list = []
     confusions = []
 
     for i in range(rounds):
-        x_train, x_test, y_train, y_test = train_test_split(
-            x, y, test_size=0.2, random_state=i, shuffle=True
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2, random_state=i, shuffle=True
         )
         model = KNeighborsClassifier(n_neighbors=k)
-        model.fit(x_train, y_train)
-        y_pred = model.predict(x_test)
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_test)
 
         accuracy = accuracy_score(y_test, y_pred)
         acc_list.append(accuracy)

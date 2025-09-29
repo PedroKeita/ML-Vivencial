@@ -6,12 +6,12 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import KFold, cross_val_score
 
-def choose_k(x, y, k_values):
+def choose_k(X, y, k_values):
     """
     Encontra o melhor valor de K para K-NN via K-Fold Cross Validation.
 
     Args:
-        x (np.ndarray): Matriz de características N×p
+        X (np.ndarray): Matriz de características N×p
         y (np.ndarray): Vetor de classes N×1
         k_values (list): Lista de valores de k a testar
 
@@ -26,7 +26,7 @@ def choose_k(x, y, k_values):
 
     for k in k_values:
         model = KNeighborsClassifier(n_neighbors=k)
-        scores = cross_val_score(model, x, y, cv=kf)
+        scores = cross_val_score(model, X, y, cv=kf)
         results[k] = scores.mean()
     
     better_k = max(results, key=results.get)
