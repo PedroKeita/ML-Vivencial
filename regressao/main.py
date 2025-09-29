@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd
 
 from regressao.load_data import load_data
-from regressao.plots import plot_scatter
 from regressao.model_runner import run_linear_regression
 from regressao.metrics import calculate_statistics
 
@@ -17,9 +16,6 @@ def main():
     data = load_data("../data/aerogerador.dat")
     x = data[["velocidade"]].values
     y = data["potencia"].values
-
-    # Plot dispersão
-    plot_scatter(x, y, xlabel="Velocidade do vento", ylabel="Potência gerada", title="Velocidade x Potência")
 
     # Executar regressão linear
     results = run_linear_regression(x, y, n_rounds=500)
