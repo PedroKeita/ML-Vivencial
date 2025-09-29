@@ -1,7 +1,18 @@
+"""
+Visualização de dispersão dos sinais EMG.
+"""
+
 import matplotlib.pyplot as plt
 
 def view_scatter_plot(x,y):
+    """
+    Plota gráfico de dispersão das amostras de EMG destacando as classes.
 
+    Args:
+        x (np.ndarray): Matriz de características N×p
+        y (np.ndarray): Vetor de classes N×1
+    """
+    
     plt.figure(figsize=(8, 6))
     scatter = plt.scatter(x[:, 0], x[:, 1], c=y, cmap="tab10", alpha=0.7)
     plt.xlabel("Sensor 1: Corrugador do Supercílio")

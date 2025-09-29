@@ -1,3 +1,8 @@
+"""
+Validação do modelo K-NN usando amostragem aleatória.
+Calcula estatísticas de acurácia e matrizes de confusão.
+"""
+
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
@@ -5,6 +10,21 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 
 def random_validator(x, y, k, rounds=500):
 
+    """
+    Executa validação aleatória do modelo K-NN.
+
+    Args:
+        x (np.ndarray): Matriz de características N×p
+        y (np.ndarray): Vetor de classes N×1
+        k (int): Número de vizinhos para K-NN
+        rounds (int): Número de rodadas aleatórias
+
+    Returns:
+        statistics (dict): Estatísticas de acurácia
+        better_conf (tuple): Matriz de confusão do melhor caso
+        worse_conf (tuple): Matriz de confusão do pior caso
+    """
+    
     acc_list = []
     confusions = []
 
