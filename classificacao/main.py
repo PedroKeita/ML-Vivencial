@@ -1,36 +1,58 @@
 """
-Exemplo de execução do módulo de classificação EMG.
+Execução do módulo de classificação de sinais EMG.
+Testa KNN (com K-Fold e validação aleatória) e Gaussian Naive Bayes.
 """
 
-from classificacao import choose_k, view_scatter_plot, random_validator, loading_date
+from classificacao import (
+    loading_date,
+    view_scatter_plot,
+    choose_k,
+    random_validator,
+    bayes_validator
+)
 import pandas as pd
 
 if __name__ == "__main__":
 
-    #Carregar os dados
-    x, y = loading_date()
+    # Carregar os dados
+    X, y = loading_date()
 
-    #Visualizar os dados
-    view_scatter_plot(x, y)
+    # Visualizar os dados
+    view_scatter_plot(X, y)
 
-    #Definição de valores de k para validação K-Fold
+    # KNN
     k_values = [1, 7, 11, 17, 23, 39, 101, 501, 1001]
-    better_k, results = choose_k(x, y, k_values)
-    print("\nResultados com a validação K-Fold:")
+    better_k, results = choose_k(X, y, k_values)
+
+    print("\nResultados com a validação K-Fold (KNN):")
     for k, score in results.items():
         print(f"k={k}: {score:.4f}")
     print(f"\nMelhor k encontrado foi: {better_k}")
 
-    #Realizar a validação aleatória
-    statistics, better_conf, worse_conf = random_validator(x, y, better_k)
-    print("\nEstatísticas validação aleatória de 500 rodadas:")
-    print(pd.DataFrame(statistics, index=["estatisticas"]).T)
+    statistics_knn, better_conf_knn, worse_conf_knn = random_validator(X, y, better_k)
+    print("\nEstatísticas KNN (500 rodadas de validação aleatória):")
+    print(pd.DataFrame(statistics_knn, index=["estatísticas"]).T)
 
-    acc_best, conf_best = better_conf
-    acc_worst, conf_worst = worse_conf
+    acc_best, conf_best = better_conf_knn
+    acc_worst, conf_worst = worse_conf_knn
 
-    print("\nMelhor caso de matriz de confusão (acurácia {:.4f}):".format(acc_best))
-    print((conf_best))
+    print("\nMelhor caso de matriz de confusão (KNN, acurácia {:.4f}):".format(acc_best))
+    print(conf_best)
 
-    print("\nPior caso de matriz de confusão (acurácia {:.4f}):".format(acc_worst))
-    print((conf_worst))
+    print("\nPior caso de matriz de confusão (KNN, acurácia {:.4f}):".format(acc_worst))
+    print(conf_worst)
+
+    # Gaussian Naive Bayes
+    statistics_bayes, better_conf_bayes, worse_conf_bayes = bayes_validator(X, y)
+
+    print("\nEstatísticas Gaussian Naive Bayes (500 rodadas):")
+    print(pd.DataFrame(statistics_bayes, index=["estatísticas"]).T)
+
+    acc_best, conf_best = better_conf_bayes
+    acc_worst, conf_worst = worse_conf_bayes
+
+    print("\nMelhor caso de matriz de confusão (Bayes, acurácia {:.4f}):".format(acc_best))
+    print(conf_best)
+
+    print("\nPior caso de matriz de confusão (Bayes, acurácia {:.4f}):".format(acc_worst))
+    print(conf_worst)
