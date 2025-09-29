@@ -6,7 +6,7 @@ import os
 from typing import Dict
 
 def umap_runner(X: np.ndarray, dims: list = [3, 15, 55, 101], random_state: int = 42, 
-                save_dir: str = "results/umap") -> Dict[int, np.ndarray]:
+                save_dir: str = "plots/umap") -> Dict[int, np.ndarray]:
 
     os.makedirs(save_dir, exist_ok=True)
     results = {}

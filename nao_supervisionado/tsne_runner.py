@@ -5,7 +5,7 @@ from sklearn.manifold import TSNE
 import numpy as np
 import os
 
-def tsne_runner(X: np.ndarray, save_dir: str = "plots", perplexity: int = 30, random_state: int = 42) -> np.ndarray:
+def tsne_runner(X: np.ndarray, save_dir: str = "plots/tsne", perplexity: int = 30, random_state: int = 42) -> np.ndarray:
     os.makedirs(save_dir, exist_ok=True)
     
     tsne = TSNE(n_components=2, perplexity=perplexity, random_state=random_state, init="pca")

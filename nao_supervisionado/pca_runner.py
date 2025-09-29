@@ -6,7 +6,7 @@ import numpy as np
 from typing import Dict
 import os
 
-def pca_runner(X: np.ndarray, save_dir: str = "plots", variances: list = [0.90, 0.80, 0.75]) -> Dict[float, np.ndarray]:
+def pca_runner(X: np.ndarray, save_dir: str = "plots/pca", variances: list = [0.90, 0.80, 0.75]) -> Dict[float, np.ndarray]:
     os.makedirs(save_dir, exist_ok=True)
     
     results = {}
