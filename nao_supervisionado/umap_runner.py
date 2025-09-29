@@ -5,26 +5,21 @@ Permite projeções em 2D e 3D para diferentes dimensões finais.
 
 import umap.umap_ as umap
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-import os
 from typing import Dict
 
-def umap_runner(X: np.ndarray, dims: list = [3, 15, 55, 101], random_state: int = 42, save_dir: str = "plots/umap") -> Dict[int, np.ndarray]:
+def umap_runner(X: np.ndarray, dims: list = [3, 15, 55, 101], random_state: int = 42) -> Dict[int, np.ndarray]:
     """
-    Executa UMAP com diferentes dimensões e salva gráficos 2D e 3D.
+    Executa UMAP para diferentes dimensões e plota a projeção 2D e 3D quando possível.
 
     Args:
         X (np.ndarray): Dados normalizados.
-        dims (list): Lista de dimensões finais (3, 15, 55, 101).
-        random_state (int): Semente para reprodutibilidade.
-        save_dir (str): Diretório para salvar os plots.
+        dims (list): Lista de dimensões alvo.
+        random_state (int): Semente aleatória.
 
     Returns:
-        Dict[int, np.ndarray]: Dicionário mapeando dimensões para dados reduzidos.
+        Dict[int, np.ndarray]: Dicionário com chave = dimensão e valor = dados transformados.
     """
-
-    os.makedirs(save_dir, exist_ok=True)
     results = {}
 
     for d in dims:
@@ -32,17 +27,15 @@ def umap_runner(X: np.ndarray, dims: list = [3, 15, 55, 101], random_state: int 
         X_umap = reducer.fit_transform(X)
         results[d] = X_umap
 
-        # Gera projeção 2D 
+        # Plot 2D
         plt.figure(figsize=(8,6))
         plt.scatter(X_umap[:,0], X_umap[:,1], s=12, alpha=0.7)
         plt.title(f"UMAP {d}D - projeção 2D")
         plt.xlabel("Dim 1")
         plt.ylabel("Dim 2")
-        plt.tight_layout()
-        plt.savefig(os.path.join(save_dir, f"umap_{d}D_2d.png"))
-        plt.close()
+        plt.show()
 
-        # Gera projeção 3D 
+        # Plot 3D 
         if d >= 3:
             fig = plt.figure(figsize=(8,6))
             ax = fig.add_subplot(111, projection='3d')
@@ -51,8 +44,7 @@ def umap_runner(X: np.ndarray, dims: list = [3, 15, 55, 101], random_state: int 
             ax.set_xlabel("Dim 1")
             ax.set_ylabel("Dim 2")
             ax.set_zlabel("Dim 3")
-            plt.tight_layout()
-            plt.savefig(os.path.join(save_dir, f"umap_{d}D_3d.png"))
-            plt.close()
+            plt.show()
 
     return results
+
