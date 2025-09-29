@@ -1,3 +1,8 @@
+"""
+Módulo para clusterização de dados.
+Suporta K-means e K-medoids, calcula índice de Dunn e salva gráficos 2D.
+"""
+
 import os
 import matplotlib
 matplotlib.use("Agg")
@@ -9,7 +14,19 @@ from typing import Dict
 from .dunn_index import dunn_index
 
 def cluster_runner(X: np.ndarray, k_values: list = [3, 5, 7], method: str = "kmeans", plot: bool = True) -> Dict[int, float]:
-   
+    """
+    Executa K-means ou K-medoids para múltiplos valores de K e calcula índice de Dunn.
+
+    Args:
+        X (np.ndarray): Dados de entrada (N amostras x p características).
+        k_values (list): Lista de valores K para testar.
+        method (str): "kmeans" ou "kmedoids".
+        plot (bool): Se True, gera e salva gráficos 2D (somente se X tiver 2 dimensões).
+
+    Returns:
+        Dict[int,float]: Dicionário mapeando cada K para seu índice de Dunn.
+    """
+    
     results = {}
     for k in k_values:
         if method == "kmeans":

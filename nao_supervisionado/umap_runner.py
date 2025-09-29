@@ -1,3 +1,8 @@
+"""
+Módulo para redução de dimensionalidade usando UMAP.
+Permite projeções em 2D e 3D para diferentes dimensões finais.
+"""
+
 import umap.umap_ as umap
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -5,8 +10,19 @@ import numpy as np
 import os
 from typing import Dict
 
-def umap_runner(X: np.ndarray, dims: list = [3, 15, 55, 101], random_state: int = 42, 
-                save_dir: str = "plots/umap") -> Dict[int, np.ndarray]:
+def umap_runner(X: np.ndarray, dims: list = [3, 15, 55, 101], random_state: int = 42, save_dir: str = "plots/umap") -> Dict[int, np.ndarray]:
+    """
+    Executa UMAP com diferentes dimensões e salva gráficos 2D e 3D.
+
+    Args:
+        X (np.ndarray): Dados normalizados.
+        dims (list): Lista de dimensões finais (3, 15, 55, 101).
+        random_state (int): Semente para reprodutibilidade.
+        save_dir (str): Diretório para salvar os plots.
+
+    Returns:
+        Dict[int, np.ndarray]: Dicionário mapeando dimensões para dados reduzidos.
+    """
 
     os.makedirs(save_dir, exist_ok=True)
     results = {}
@@ -16,7 +32,7 @@ def umap_runner(X: np.ndarray, dims: list = [3, 15, 55, 101], random_state: int 
         X_umap = reducer.fit_transform(X)
         results[d] = X_umap
 
-        # Sempre gera projeção 2D 
+        # Gera projeção 2D 
         plt.figure(figsize=(8,6))
         plt.scatter(X_umap[:,0], X_umap[:,1], s=12, alpha=0.7)
         plt.title(f"UMAP {d}D - projeção 2D")
@@ -26,7 +42,7 @@ def umap_runner(X: np.ndarray, dims: list = [3, 15, 55, 101], random_state: int 
         plt.savefig(os.path.join(save_dir, f"umap_{d}D_2d.png"))
         plt.close()
 
-        # Sempre gera projeção 3D 
+        # Gera projeção 3D 
         if d >= 3:
             fig = plt.figure(figsize=(8,6))
             ax = fig.add_subplot(111, projection='3d')

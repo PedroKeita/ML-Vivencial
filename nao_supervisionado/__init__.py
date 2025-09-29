@@ -1,3 +1,15 @@
+"""
+Pacote nao_supervisionado
+
+Módulo com funcionalidades para análise exploratória de dados de imagens faciais.
+Inclui:
+- Carregamento de imagens
+- Normalização
+- Redução de dimensionalidade (t-SNE, PCA, UMAP)
+- Clusterização (K-means, K-medoids)
+- Cálculo do índice de Dunn
+"""
+
 from .loading_images import loading_images
 from .normalize import normalize
 from .tsne_runner import tsne_runner

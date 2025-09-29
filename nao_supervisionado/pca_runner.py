@@ -1,3 +1,8 @@
+"""
+Módulo para redução de dimensionalidade usando PCA.
+Mantém diferentes proporções de variância e salva gráficos 2D.
+"""
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -7,6 +12,18 @@ from typing import Dict
 import os
 
 def pca_runner(X: np.ndarray, save_dir: str = "plots/pca", variances: list = [0.90, 0.80, 0.75]) -> Dict[float, np.ndarray]:
+    """
+    Executa PCA mantendo diferentes proporções de variância e salva gráficos 2D.
+
+    Args:
+        X (np.ndarray): Dados normalizados.
+        save_dir (str): Diretório onde salvar os plots.
+        variances (list): Lista de proporções de variância para manter (ex: 0.9, 0.8, 0.75).
+
+    Returns:
+        Dict[float, np.ndarray]: Dicionário mapeando % de variância para matriz transformada.
+    """
+    
     os.makedirs(save_dir, exist_ok=True)
     
     results = {}

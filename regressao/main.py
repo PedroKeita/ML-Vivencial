@@ -1,6 +1,7 @@
 """
 Main para executar a regressão linear do aerogerador.
 """
+
 import os
 import numpy as np
 import pandas as pd
