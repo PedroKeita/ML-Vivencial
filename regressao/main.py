@@ -9,6 +9,7 @@ import pandas as pd
 from regressao.load_data import load_data
 from regressao.model_runner import run_linear_regression
 from regressao.metrics import calculate_statistics
+from regressao.plot_scatter import plot_scatter
 
 def main():
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -17,6 +18,8 @@ def main():
     data = load_data("../data/aerogerador.dat")
     x = data[["velocidade"]].values
     y = data["potencia"].values
+
+    plot_scatter(x, y)
 
     # Executar regressão linear
     results = run_linear_regression(x, y, n_rounds=500)
